@@ -1,0 +1,138 @@
+.reviewPanel ul li {
+  list-style-type: none;
+}
+
+// harris styling
+
+
+.navbar {
+  margin-top: 0;
+  padding-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: transparent;
+  border-bottom: 0;
+  font-family: Lato;
+  font-size: 1.1em;
+  .menuitem {
+    float: right;
+  }
+}
+
+.navbar-default .navbar-nav > li > a {
+  background-color: transparent;
+  color: #000;
+  letter-spacing: 0.08em;
+}
+
+html, body, .ui-view-index {
+   width: 100%;
+  height: 100%;
+}
+body {
+  margin-top: 0px;
+  background: url('../assets/images/splash_blur.jpg') no-repeat center;
+  .quiz {
+    text-align: center;
+  }
+}
+
+html, html a {
+    -webkit-font-smoothing: antialiased !important;
+}
+ h1.maintitle {
+    font-size: 2.15em;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 270px;
+    text-align: center;
+    color: black ;
+    letter-spacing: 0.02px;
+  }
+
+h1.formtitle {
+    font-size: 2.15em;
+    font-family: 'Montserrat', sans-serif;
+    padding-top: 220px;
+    text-align: center;
+    color: black ;
+    letter-spacing: 0.02px;
+  }
+
+#tryit {
+  margin: 7px;
+  border: 3px solid #232529;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 0px;
+  padding: 20px;
+  display: block;
+  margin: 0 auto;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  color: 383D3C;
+  margin-top: 50px;
+
+  transition : all 0.4s ease-in-out;
+   &:hover {
+    color: white;
+    background: #232529;
+  }
+}
+
+.connectedlist {
+
+  display: inline-block;
+
+  button {
+    margin: 7px;
+    border: 3px solid #232529;
+    background: transparent;
+    border-radius: 0px;
+    padding: 20px;
+    display: block;
+    float: right;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.9em;
+    color: rgba(0,0,0,0.6);
+    margin-top: 50px;
+
+    transition : all 0.4s ease-in-out;
+     &:hover {
+      color: white;
+      background: #232529;
+    }
+  }
+  input.fs-input {
+    width: 600px;
+    background: transparent;
+    border: none;
+    border-bottom: 4px solid #232529;
+    padding: 20px;
+    font-size: 1.8em;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.12em;
+    color: #fffed8;
+    margin-top: 50px;
+    display: block;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.home-page-container {
+  margin-top: -89px;
+  width: 100%;
+  height: 100%;
+  background: url('../assets/images/splash.jpeg');
+  background-size: cover ;
+  background-position: center;
+}
+
+.home-page-container a {
+  color: #232529;
+  &:hover {
+    text-decoration: none;
+  };
+}

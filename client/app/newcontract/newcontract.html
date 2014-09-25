@@ -1,0 +1,29 @@
+
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container quiz" ng-hide="showReview">
+  <button ng-click="getPrev()" ng-hide="currNode.num==1" class="fs-button">Go Back</button>
+  <br>
+  <h1 class="formtitle">{{currNode.question}}</h1>
+  <div ng-repeat="connection in currNode.connections" class="connectedlist">
+    <button class="l" ng-click="getNext(connection.next, connection.option, connection.type)" ng-hide="!connection.option">{{connection.option}}</button>
+
+    <div ng-show="connection.option == null"><input class="fs-input" ng-model="currNode.answer.answer"> <button ng-click="getNext(connection.next, currNode.answer.answer, connection.type)">Continue</button> </div>
+
+  </div>
+  <button ng-show="currNode.num==21" ng-click="renderPreview()">Submit</button>
+</div>
+
+<div class="container reviewPanel" ng-show="showReview">
+  <ul ng-repeat = "node in historyNodes" class="previewQuestions">
+    <li>
+      <ul>
+        <li><strong>{{node.num}}. {{node.question}}</strong></li>
+        <ul class="inlineblock">
+        <li class="review" ng-init="showicon" ng-mouseover="showicon = true" ng-mouseleave="showicon = false">{{node.answer.answer}}</li>
+        <a ><i class="icon ion-edit" ng-show="showicon" ng-hide="!showicon"></i></a>
+        </ul>
+      </ul>
+    </li>
+  </ul>
+</div>
