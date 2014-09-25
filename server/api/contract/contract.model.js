@@ -6,7 +6,9 @@ var mongoose = require('mongoose'),
 
 var ContractSchema = new Schema({
   tree: { type: Schema.Types.ObjectId, ref: "Tree"},
-  answers: {}
+  answers: {},
+  userId: String,
+  draft: {type: Boolean, default: true}
 });
 
 module.exports = mongoose.model('Contract', ContractSchema);

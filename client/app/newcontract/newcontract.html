@@ -1,8 +1,22 @@
 
 <div ng-include="'components/navbar/navbar.html'"></div>
 
-<div class="container quiz" ng-hide="showReview">
-  <button ng-click="getPrev()" ng-hide="currNode.num==1" class="fs-button">Go Back</button>
+
+<div ng-show="!showGen">
+  <div class="col-sm-2">
+  </div>
+  <div class="dashboardPanel col-sm-8">
+    <ul>
+      <a ng-click="createContract()"><li><div><i class="ion-document-text"></div></i><div>CREATE</div></li></a>
+      <a href=""><li><div><i class="ion-filing"></div></i><div>MANAGE</div></li></a>
+      <a href=""><li><div><i class="icon ion-ios7-compose"></div></i><div>SIGN</div></li></a>
+    <ul>
+  </div>
+  <div class="dashboardPanel col-sm-2">
+  </div>
+</div>
+
+<div class="container quiz" ng-show="showGen ==true">
   <br>
   <h1 class="formtitle">{{currNode.question}}</h1>
   <div ng-repeat="connection in currNode.connections" class="connectedlist">
@@ -11,19 +25,31 @@
     <div ng-show="connection.option == null"><input class="fs-input" ng-model="currNode.answer.answer"> <button ng-click="getNext(connection.next, currNode.answer.answer, connection.type)">Continue</button> </div>
 
   </div>
-  <button ng-show="currNode.num==21" ng-click="renderPreview()">Submit</button>
+  <br>
+  <br>
+  <button class= "backOrSubmit" ng-show="currNode.num==21" ng-click="open()">REVIEW</button>
+  <br ng-show="currNode.num==21">
+  <br ng-show="currNode.num==21">
+  <button class = "backOrSubmit" ng-click="getPrev()" ng-hide="currNode.num==1" class="fs-button">Go Back</button>
+
 </div>
 
-<div class="container reviewPanel" ng-show="showReview">
-  <ul ng-repeat = "node in historyNodes" class="previewQuestions">
-    <li>
-      <ul>
-        <li><strong>{{node.num}}. {{node.question}}</strong></li>
-        <ul class="inlineblock">
-        <li class="review" ng-init="showicon" ng-mouseover="showicon = true" ng-mouseleave="showicon = false">{{node.answer.answer}}</li>
-        <a ><i class="icon ion-edit" ng-show="showicon" ng-hide="!showicon"></i></a>
-        </ul>
+  <script type="text/ng-template" id="modal.html">
+    <div class="modal-body">
+      <h3>REVIEW</h3><br>
+      <ul ng-repeat = "node in historyNodes" class="previewQuestions">
+        <li>
+          <ul>
+            <li><strong>{{node.question}}</strong><br></li>
+            <li class="review">{{node.answer.answer}}<br></li>
+          </ul>
+        </li>
       </ul>
-    </li>
-  </ul>
-</div>
+    </div>
+    <div class="modal-footer">
+          <button ng-click="ok()">Submit</button>
+          <button ng-click="cancel()">Back</button>
+    </div>
+  </script>
+
+

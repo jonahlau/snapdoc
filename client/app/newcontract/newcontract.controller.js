@@ -1,23 +1,43 @@
 'use strict';
 
 angular.module('snapdocApp')
-  .controller('NewcontractCtrl', function ($scope, $http, socket) {
+  .controller('NewcontractCtrl', function ($scope, $http, socket, Auth, $modal, $log, $rootScope) {
+    $scope.user = Auth.getCurrentUser();
+    $scope.showGen = false;
 
-   $http.get('/api/nodes/').success(function(data) {
-      var _nodes = data;
-      $scope.historyNodes = [];
-      $scope.currNode = _nodes[0];
-      socket.syncUpdates('node', $scope.historyNodes);
-      $http.get('/api/trees/').success(function(data) {
-        $scope.currTree = data;
-        $scope.currTree.head = _nodes[0]._id;
+    $scope.createContract = function() {
+      $scope.showGen = true;
+      $rootScope.showGen = true;
+      $http.post('/api/contracts/').success(function(data) {
+        $scope.currContract = data;
+        $http.get('/api/nodes/').success(function(data) {
+          var _nodes = data;
+          $scope.historyNodes = [];
+          $scope.currNode = _nodes[0];
+          socket.syncUpdates('node', $scope.historyNodes);
+          $http.get('/api/trees/').success(function(data) {
+            $scope.currTree = data;
+            $scope.currTree.head = _nodes[0]._id;
+            $scope.currContract.tree = $scope.currTree._id;
+            $http.put('/api/contracts/'+$scope.currContract._id, $scope.currContract).success(function(data) {console.log("tree added", data)});
+          });
+        });
       });
-    });
+    };
 
-    $http.post('/api/contracts/').success(function(data) {
-      $scope.currContract = data;
-    });
-
+    // $http.get('/api/nodes/').success(function(data) {
+    //   var _nodes = data;
+    //   $scope.historyNodes = [];
+    //   $scope.currNode = _nodes[0];
+    //   socket.syncUpdates('node', $scope.historyNodes);
+    //   $http.get('/api/trees/').success(function(data) {
+    //     $scope.currTree = data;
+    //     $scope.currTree.head = _nodes[0]._id;
+    //     $scope.currContract.tree = $scope.currTree._id;
+    //     $http.put('/api/contracts/'+$scope.currContract._id, $scope.currContract).success(function(data) {console.log("tree added")});
+    //     $rootScope.currContract = $scope.currContract;
+    //   });
+    // });
 
      var storeAnswer = function(answer, answerType) {
       if (!$scope.currContract.answers) {$scope.currContract.answers = {};}
@@ -25,7 +45,7 @@ angular.module('snapdocApp')
       $scope.currNode.answer = {answer: answer, type: answerType};
       $scope.historyNodes.push($scope.currNode);
       console.log($scope.historyNodes);
-      $http.put('/api/contracts/'+$scope.currContract._id, $scope.currContract).success(function(data) { console.log(data.answers)});
+      $http.put('/api/contracts/'+$scope.currContract._id, $scope.currContract).success(function(data) { console.log("stored answers on db", data.answers)});
     };
 
     $scope.getNext = function(id, answer, answerType) {
@@ -37,7 +57,7 @@ angular.module('snapdocApp')
       });
     };
 
-    $scope.renderPreview = function() {
+    $scope.renderReview = function() {
       $scope.answeredQs = [];
       var compare = function(node1, node2) {
           if (node1.num < node2.num) {
@@ -69,4 +89,46 @@ angular.module('snapdocApp')
       console.log($scope.currNode.answer);
       $scope.currNode = $scope.historyNodes.pop();
     };
-});
+
+
+
+    $scope.open = function() {
+      console.log("got here");
+      var modalInstance = $modal.open({
+         templateUrl: 'modal.html',
+         controller: ModalInstanceCtrl,
+         size: "lg",
+         resolve: {
+             items: function() {
+                 return $scope.historyNodes;
+             }
+         }
+      });
+
+     modalInstance.result.then(function(selectedItem) {
+         $scope.selected = selectedItem;
+     }, function() {
+         $log.info('Modal dismissed at: ' + new Date());
+     });
+    };
+ });
+
+
+
+ // Please note that $modalInstance represents a modal window (instance) dependency.
+ // It is not the same as the $modal service used above.
+
+ var ModalInstanceCtrl = function($scope, $modalInstance, items) {
+
+     $scope.historyNodes = items;
+     console.log($scope.historyNodes);
+
+     $scope.ok = function() {
+         $modalInstance.close($scope.selected.item);
+         $scope.renderContract();
+     };
+
+     $scope.cancel = function() {
+         $modalInstance.dismiss('cancel');
+     };
+ };

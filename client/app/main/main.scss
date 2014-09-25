@@ -1,9 +1,78 @@
-.reviewPanel ul li {
-  list-style-type: none;
+.modal-body {
+  font-family: 'Monsterrat', sans-serif;
+  font-size: 1.2em;
+  color: #232529;
+}
+
+h3 {
+    font-weight: bold;
+    font-family: 'Monsterrat', sans-serif;
+    font-size: 1.4em;
+    text-align: center;
+}
+
+.modal-body ul li {
+  list-style: none;
+}
+
+.modal-footer button {
+    margin: 4px;
+    border: 3px solid #232529;
+    background: transparent;
+    border-radius: 0px;
+    padding: 20px;
+    display: block;
+    float: right;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.3em;
+    color: rgba(0,0,0,0.6);
+    margin-top: 10px;
+
+    transition : all 0.4s ease-in-out;
+     &:hover {
+      color: white;
+      background: #232529;
+    }
 }
 
 // harris styling
 
+.dashboardPanel {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-radius: 20px;
+  padding: 100px;
+  text-align: center;
+  width: 960px;
+  ul {
+    a {color: #232529}
+    display: inline-flex;
+    list-style: none;
+    padding-left: -10px;
+    padding-right: auto;
+    li {
+      border: 3px solid #232529;
+      padding-top: 5px;
+      background-color: rgba(255,255,255,0.27);
+      width: 230px;
+      height: 230px;
+      border-radius: 100%;
+      margin-left: 0;
+      margin-right: 50px;
+      transition : all 0.4s ease-in-out;
+       &:hover {
+      color: white;
+      text-decoration: none;
+      background: #232529;
+      }
+    }
+    i {
+      font-size: 5em;
+    }
+  }
+}
 
 .navbar {
   margin-top: 0;
@@ -29,6 +98,7 @@ html, body, .ui-view-index {
    width: 100%;
   height: 100%;
 }
+
 body {
   margin-top: 0px;
   background: url('../assets/images/splash_blur.jpg') no-repeat center;
@@ -77,6 +147,57 @@ h1.formtitle {
     color: white;
     background: #232529;
   }
+}
+
+.fs-button {
+  a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.4em;
+    font-decoration: none;
+    color: #232529;
+    &:hover {
+      font-decoration: underline;
+    }
+  }
+  button {
+    margin-right: 77.4%;
+    border: 2px solid #232529;
+    background: transparent;
+    border-radius: 0px;
+    padding: 15px;
+    display: block;
+    float: right;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: rgba(0,0,0,0.6);
+    margin-top: 50px;
+
+    transition : all 0.4s ease-in-out;
+     &:hover {
+      color: white;
+      background: #232529;
+    }
+  }
+}
+
+.backOrSubmit {
+    border: 3px solid #232529;
+    background: transparent;
+    border-radius: 0px;
+    padding: 15px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    font-size: 1.6em;
+    color: rgba(0,0,0,0.6);
+    text-align: center;
+
+    transition : all 0.4s ease-in-out;
+     &:hover {
+      color: white;
+      background: #232529;
+    }
 }
 
 .connectedlist {

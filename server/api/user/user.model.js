@@ -16,7 +16,7 @@ var UserSchema = new Schema({
   provider: String,
   salt: String,
   google: {},
-  github: {}
+  contracts: {type: Schema.Types.ObjectId, ref: "Contract"}
 });
 
 /**

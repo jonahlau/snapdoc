@@ -22,6 +22,8 @@ exports.show = function(req, res) {
 
 // Creates a new contract in the DB.
 exports.create = function(req, res) {
+  var userId = req.user._id;
+  req.body.userId = userId;
   Contract.create(req.body, function(err, contract) {
     if(err) { return handleError(res, err); }
     return res.json(201, contract);
