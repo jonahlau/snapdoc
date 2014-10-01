@@ -100,7 +100,11 @@ angular.module('snapdocApp')
          size: "lg",
          resolve: {
              items: function() {
-                 return $scope.historyNodes;
+                 return {
+                  historyNodes: $scope.historyNodes,
+                  currContract: $scope.currContract,
+                  currTree: $scope.currTree
+                }
              }
          }
       });
@@ -118,14 +122,76 @@ angular.module('snapdocApp')
  // Please note that $modalInstance represents a modal window (instance) dependency.
  // It is not the same as the $modal service used above.
 
- var ModalInstanceCtrl = function($scope, $modalInstance, items) {
+ var ModalInstanceCtrl = function($scope, $modalInstance, items, $location) {
 
-     $scope.historyNodes = items;
-     console.log($scope.historyNodes);
+     $scope.historyNodes = items.historyNodes;
+     var currContract = items.currContract;
+     var template = items.currTree[0].template;
+     var answers = items.currContract.answers;
+     // console.log("contract", $scope.currContract);
+     // console.log("tree", $scope.currTree);
+     // console.log("template:", $scope.currTree[0].template);
+     // console.log("historyNodes", $scope.historyNodes);
+     var  output= template;
+
+    $scope.renderContract = function() {
+      console.log("got to renderContract");
+      if (answers.whichSide === "For the company") {
+        console.log("got to first if statement");
+        console.log(answers);
+        if (answers.clientType === "A company") {
+
+          output = template.replace("{{partyA}}", answers.clientCoName);
+          console.log(output);
+        }
+        if (answers.clientType === "An individual") {
+          output = template.replace("{{partyA}}", answers.personClientName);
+        }
+        if (answers.otherPartyType === "Yes") {
+        output = template.replace("{{partyB}}", answers.otherPartyCoName)
+        }
+        if (answers.otherPartyType === "No") {
+          output = template.replace("{{partyB}}", "ConsultantName")
+        }
+      } else if (answers.whichSide === "For the consultant") {
+        if (answers.clientType === "A company") {
+          output = template.replace("{{partyB}}", answers.clientCoName);
+        }
+        if (answers.clientType === "An individual") {
+          output = template.replace("{{partyB}}", answers.personClientName);
+        }
+        if (answers.otherPartyType === "Yes") {
+        output = template.replace("{{partyA}}", answers.otherPartyCoName);
+        }
+        if (answers.otherPartyType === "No") {
+          output = template.replace("{{partyA}}", "otherPartyCoName");
+        }
+      }
+
+      if (answers.rateType === "Fixed Rate") {
+        output = template.replace("{{rate}}", answers.rate);
+      } else if (answers.rateType === "Hourly rate") {
+        output = template.replace("{{rate}}", answers.rate+"per hour");
+      }
+
+      // if (answers.ipOwnership === "The Company") {
+      //   if (answers.haveIpRestrictions === "Yes") {
+      //     output = template.replace("{{}}")
+      //   }
+      // }
+
+      output = template.replace("{{scopeOfWork}}", answers.scopeOfWork);
+      output = template.replace("{{deadline}}", answers.deadline);
+      output = template.replace("{{rateType}}", answers.rateType)
+      output = template.replace("{{jurisdiction}}", answers.jurisdiction)
+
+      $scope.output = output;
+    };
 
      $scope.ok = function() {
-         $modalInstance.close($scope.selected.item);
-         $scope.renderContract();
+      console.log("got here to ok")
+        $scope.renderContract();
+        $scope.showContract = true;
      };
 
      $scope.cancel = function() {

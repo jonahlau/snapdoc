@@ -98,6 +98,7 @@ angular.module('snapdocApp')
        * @return {Object} user
        */
       getCurrentUser: function() {
+        debugger;
         return currentUser;
       },
 

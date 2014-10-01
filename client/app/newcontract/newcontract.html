@@ -36,19 +36,27 @@
 
   <script type="text/ng-template" id="modal.html">
     <div class="modal-body">
-      <h3>REVIEW</h3><br>
-      <ul ng-repeat = "node in historyNodes" class="previewQuestions">
-        <li>
-          <ul>
-            <li><strong>{{node.question}}</strong><br></li>
-            <li class="review">{{node.answer.answer}}<br></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-    <div class="modal-footer">
-          <button ng-click="ok()">Submit</button>
-          <button ng-click="cancel()">Back</button>
+
+      <div ng-hide="showContract">
+        <h3>REVIEW</h3><br>
+        <ul ng-repeat = "node in historyNodes" class="previewQuestions">
+          <li>
+            <ul>
+              <li><strong>{{node.question}}</strong><br></li>
+              <li class="review">{{node.answer.answer}}<br></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div ng-show="showContract">
+        {{output}}
+      </div>
+
+      <div class="modal-footer">
+            <button ng-click="ok()">Submit</button>
+            <button ng-click="cancel()">Back</button>
+      </div>
     </div>
   </script>
 

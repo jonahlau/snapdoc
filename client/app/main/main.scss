@@ -1,4 +1,4 @@
-.modal-body {
+  .modal-body {
   font-family: 'Monsterrat', sans-serif;
   font-size: 1.2em;
   color: #232529;
@@ -141,11 +141,17 @@ h1.formtitle {
   font-size: 20px;
   color: 383D3C;
   margin-top: 50px;
+/*  width: 250px;
+  height: 250px;*/
 
   transition : all 0.4s ease-in-out;
+
    &:hover {
     color: white;
+/*    border-radius: 50%;*/
     background: #232529;
+/*    transform: rotateY(-180deg);
+    top: -999999px;*/
   }
 }
 
